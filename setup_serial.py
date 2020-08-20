@@ -8,21 +8,21 @@ RANGE = 45
 OFFSET = 0
 
 REMAPPINGS = [
-  ((-15, -50), 3, (90+RANGE+OFFSET, 90-RANGE+OFFSET)),
-  ((-15, -50), 3, (90+RANGE+OFFSET, 90-RANGE+OFFSET)),
-  ((+20, -20), 2, (90, 0)),
+  ((-60, 45), 4, (90+60, 90-45)),
+  ((135, 0), 5, (90+45+10, 90-90+10)),
+  ((0, 90), 3, (90, 0)),
 
-  ((-15, -50), 5, (90-RANGE-OFFSET, 90+RANGE-OFFSET)),
-  ((-15, -50), 5, (90-RANGE-OFFSET, 90+RANGE-OFFSET)),
-  ((-20, +20), 4, (90, 180)),
+  ((-60, 45), 10, (90-60, 90+45)),
+  ((135, 0), 11, (90-45, 90+90)),
+  ((0, 90), 9, (90, 180)),
 
-  ((+15, +50), 7, (90+RANGE+OFFSET, 90-RANGE+OFFSET)),
-  ((+15, +50), 7, (90+RANGE+OFFSET, 90-RANGE+OFFSET)),
-  ((+20, -20), 6, (90, 0)),
+  ((-60, 45), 7, (90+60, 90-45)),
+  ((135, 0), 8, (90+45+10, 90-90+5)),
+  ((0, 90), 6, (90+10, 0+10)),
 
-  ((+15, +50), 1, (90-RANGE-OFFSET, 90+RANGE-OFFSET)),
-  ((+15, +50), 1, (90-RANGE-OFFSET, 90+RANGE-OFFSET)),
-  ((-20, +20), 0, (90, 180)),
+  ((-60, 45), 1, (90-60, 90+45)),
+  ((135, 0), 2, (90-45+10, 90+90+10)),
+  ((0, 90), 0, (90-10, 180-10)),
 ]
 
 def remap(remapping, poses):
@@ -33,7 +33,7 @@ def remap(remapping, poses):
 port = serial.Serial('/dev/rfcomm0', baudrate=57600)
 
 def serial_send(action: List[float]):
-  spos = [remap(r, action * 90) for r in REMAPPINGS]
+  spos = [remap(r, action * 180) for r in REMAPPINGS]
   data = struct.pack('<hhhhhhhhhhhh', *spos)
   data = b'\xff' + data.replace(b'\xff', b'\xfe')
   port.write(data)

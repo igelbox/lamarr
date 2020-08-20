@@ -4,18 +4,38 @@ import pybullet as pb
 from pybullet import POSITION_CONTROL
 from pybullet_envs.robot_bases import MJCFBasedRobot
 
+
 from .arrays import stack_times
+
+import os
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 class ServAnt(MJCFBasedRobot):
   def __init__(
       self,
       base_position=(0, 0, 1),
   ):
-    super(ServAnt, self).__init__('ant.xml', 'torso', action_dim=8, obs_dim=0)
+    super(ServAnt, self).__init__('servant.xml', 'torso', action_dim=12, obs_dim=0)
     self.base_position = base_position
 
   def calc_state(self):
     return np.zeros(0)
+
+  def reset(self, bullet_client):
+
+    self._p = bullet_client
+    if (self.doneLoading == 0):
+      self.ordered_joints = []
+      self.doneLoading = 1
+      fpath = os.path.join(dir_path, self.model_xml)
+      self.objects = self._p.loadMJCF(fpath,
+                                    flags=pb.URDF_USE_SELF_COLLISION |
+                                    pb.URDF_USE_SELF_COLLISION_EXCLUDE_ALL_PARENTS)
+      self.parts, self.jdict, self.ordered_joints, self.robot_body = self.addToScene(
+          self._p, self.objects)
+    self.robot_specific_reset(self._p)
+
+    return self.calc_state()
 
   def robot_specific_reset(self, bullet_client):
     for j in self.ordered_joints:

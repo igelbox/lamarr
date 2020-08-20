@@ -93,7 +93,7 @@ class TrainingGym:
         # z_bonuses[i] += parts_xyz[2::3].mean() * 0.01
         # rpy = robot.robot_body.pose().rpy()
         # yaw_penalties[i] += np.abs(rpy[2]) * 0.01
-      z_bonuses += positions[:,2] * 0.01
+      z_bonuses += 0.1 / (np.abs(0.4 - positions[:,2]) + 0.1) * 0.001
 
     # done
     distances = (positions - start_positions)[:,1]
