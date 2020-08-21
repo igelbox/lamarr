@@ -87,17 +87,17 @@ class TrainingGym:
       for i, robot in enumerate(env.robots):
         la0, la1, la2 = last_actions
         acc0, acc1 = la1[i] - la0[i], la2[i] - la1[i]
-        tremor_penalties[i] += np.sum(np.where((acc1 * acc0) < 0, 1, 0)) * 0.001
-        tremor_penalties[i] += np.sum(np.abs(acc0 - acc1)) * 0.001
+        tremor_penalties[i] += np.sum(np.where((acc1 * acc0) < 0, 1, 0)) * 0.0005
         # parts_xyz = np.array([p.pose().xyz() for p in robot.parts.values()]).flatten()
         # z_bonuses[i] += parts_xyz[2::3].mean() * 0.01
         # rpy = robot.robot_body.pose().rpy()
         # yaw_penalties[i] += np.abs(rpy[2]) * 0.01
-      z_bonuses += 0.1 / (np.abs(0.4 - positions[:,2]) + 0.1) * 0.001
+      z_bonuses += 0.1 / (np.abs(0.03 - positions[:,2]) + 0.1) * 0.001
 
     # done
-    distances = (positions - start_positions)[:,1]
-    robot_rewards = distances - tremor_penalties + z_bonuses
+    distances = np.linalg.norm(positions - start_positions, axis=1)
+    flip_penalties = np.array([1 if r.robot_body.current_position()[2] > r.parts['top'].current_position()[2] else 0 for r in env.robots])
+    robot_rewards = distances - tremor_penalties + z_bonuses - flip_penalties * 1000
     # rewards -= yaw_penalties
     ars = np.argsort(robot_rewards)
     i_winner = ars[-1]

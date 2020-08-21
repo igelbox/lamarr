@@ -4,12 +4,12 @@ from modules.agents import *
 from modules.gym import Gym
 
 AGENTS_COUNT = 16
-LAYERS_DIMS = [64, 64, 64, 48]
+LAYERS_DIMS = [64, 96, 96]
 
 Robot = withTimer(withMemory(withLastAction(ServAnt)))
 # Robot = withTimer(ServAnt)
 
-env = RobotsEnvironment([Robot(base_position=(((i % 4) - 2) * 5, ((i // 4) - 2) * 5, 0.5)) for i in range(AGENTS_COUNT)])
+env = RobotsEnvironment([Robot(base_position=(((i % 4) - 2) * 1, ((i // 4) - 2) * 1, 0.05)) for i in range(AGENTS_COUNT)])
 
 agents = [DenseAgent(
     len(env.observation_space.low[0].flatten()),

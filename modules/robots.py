@@ -55,7 +55,7 @@ class ServAnt(MJCFBasedRobot):
           POSITION_CONTROL,
           targetPosition=position,
           positionGain=0.04,
-          force=200
+          force=100
         )
 
 def withMemory(BaseRobot):

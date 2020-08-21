@@ -1,4 +1,4 @@
-<mujoco model="ant">
+<mujoco model="ant" >
   <compiler angle="degree" coordinate="local" inertiafromgeom="true"/>
   <option integrator="RK4" timestep="0.01"/>
   <custom>
@@ -9,53 +9,56 @@
     <geom conaffinity="0" condim="3" density="5.0" friction="1.5 0.1 0.1" margin="0.01" rgba="0.8 0.6 0.4 1"/>
   </default>
   <worldbody>
-    <body pos="0 0 0.75" name="torso">
-      <geom pos="0 0 0" size="0.275 0.425 0.1" type="box"/>
-      <body pos="0.325 0.325 0">
+    <body pos="0 0 0.075" name="torso">
+      <geom pos="0 0 0" size="0.0275 0.0425 0.01" type="box"/>
+      <body pos="0 0 0.015" name="top">
+        <geom pos="0 0 0" size="0.02 0.04 0.005" type="box"/>
+      </body>
+      <body pos="0.0325 0.0325 0">
         <joint pos="0 0 0" axis="0 0 1" name="coxa-front-left" range="0 90" type="hinge"/>
-        <geom pos="0.175 0 0.05" size="0.25 0.075 0.2" type="box" rgba=".8 .5 .3 1"/>
-        <body pos="0.35 0 0.1">
+        <geom pos="0.0175 0 0.005" size="0.025 0.0075 0.02" type="box" rgba=".8 .5 .3 1"/>
+        <body pos="0.035 0 0.01">
           <joint pos="0 0 0" axis="0 1 0" name="femur-front-left" range="-45 60" type="hinge"/>
-          <geom pos="0.25 0.1 0.0" size="0.325 0.2 0.075" type="box" rgba=".8 .5 .3 1"/>
-          <body pos="0.5 0 0">
+          <geom pos="0.025 0.01 0.0" size="0.0325 0.02 0.0075" type="box" rgba=".8 .5 .3 1"/>
+          <body pos="0.05 0 0">
             <joint pos="0 0 0" axis="0 1 0" name="tibia-front-left" range="0 135" type="hinge"/>
-            <geom pos="0.35 0 0" size="0.5 0.1 0.05" type="box" rgba=".8 .5 .3 1"/>
+            <geom pos="0.035 0 0" size="0.05 0.01 0.005" type="box" rgba=".8 .5 .3 1"/>
           </body>
         </body>
       </body>
-      <body pos="-0.325 0.325 0">
+      <body pos="-0.0325 0.0325 0">
         <joint pos="0 0 0" axis="0 0 -1" name="coxa-front-right" range="0 90" type="hinge"/>
-        <geom pos="-0.175 0 0.05" size="0.25 0.075 0.2" type="box" rgba=".8 .5 .3 1"/>
-        <body pos="-0.35 0 0.1">
+        <geom pos="-0.0175 0 0.005" size="0.025 0.0075 0.02" type="box" rgba=".8 .5 .3 1"/>
+        <body pos="-0.035 0 0.01">
           <joint pos="0 0 0" axis="0 -1 0" name="femur-front-right" range="-45 60" type="hinge"/>
-          <geom pos="-0.25 0.1 0.0" size="0.325 0.2 0.075" type="box" rgba=".8 .5 .3 1"/>
-          <body pos="-0.5 0 0">
+          <geom pos="-0.025 0.01 0.00" size="0.0325 0.02 0.0075" type="box" rgba=".8 .5 .3 1"/>
+          <body pos="-0.05 0 0">
             <joint pos="0 0 0" axis="0 -1 0" name="tibia-front-right" range="0 135" type="hinge"/>
-            <geom pos="-0.35 0 0" size="0.5 0.1 0.05" type="box" rgba=".8 .5 .3 1"/>
+            <geom pos="-0.035 0 0" size="0.05 0.01 0.005" type="box" rgba=".8 .5 .3 1"/>
           </body>
         </body>
       </body>
-      <body pos="0.325 -0.325 0">
+      <body pos="0.0325 -0.0325 0">
         <joint pos="0 0 0" axis="0 0 -1" name="coxa-back-left" range="0 90" type="hinge"/>
-        <geom pos="0.175 0 0.05" size="0.25 0.075 0.2" type="box" rgba=".8 .5 .3 1"/>
-        <body pos="0.35 0 0.1">
+        <geom pos="0.0175 0 0.005" size="0.025 0.0075 0.02" type="box" rgba=".8 .5 .3 1"/>
+        <body pos="0.035 0 0.01">
           <joint pos="0 0 0" axis="0 1 0" name="femur-back-left" range="-45 60" type="hinge"/>
-          <geom pos="0.25 -0.1 0.0" size="0.325 0.2 0.075" type="box" rgba=".8 .5 .3 1"/>
-          <body pos="0.5 0 0">
+          <geom pos="0.025 -0.01 0.00" size="0.0325 0.02 0.0075" type="box" rgba=".8 .5 .3 1"/>
+          <body pos="0.05 0 0">
             <joint pos="0 0 0" axis="0 1 0" name="tibia-back-left" range="0 135" type="hinge"/>
-            <geom pos="0.35 0 0" size="0.5 0.1 0.05" type="box" rgba=".8 .5 .3 1"/>
+            <geom pos="0.035 0 0" size="0.05 0.01 0.005" type="box" rgba=".8 .5 .3 1"/>
           </body>
         </body>
       </body>
-      <body pos="-0.325 -0.325 0">
+      <body pos="-0.0325 -0.0325 0">
         <joint pos="0 0 0" axis="0 0 1" name="coxa-back-right" range="0 90" type="hinge"/>
-        <geom pos="-0.175 0 0.05" size="0.25 0.075 0.2" type="box" rgba=".8 .5 .3 1"/>
-        <body pos="-0.35 0 0.1">
+        <geom pos="-0.0175 0 0.005" size="0.025 0.0075 0.02" type="box" rgba=".8 .5 .3 1"/>
+        <body pos="-0.035 0 0.01">
           <joint pos="0 0 0" axis="0 -1 0" name="femur-back-right" range="-45 60" type="hinge"/>
-          <geom pos="-0.25 -0.1 0.0" size="0.325 0.2 0.075" type="box" rgba=".8 .5 .3 1"/>
-          <body pos="-0.5 0 0">
+          <geom pos="-0.025 -0.01 0.00" size="0.0325 0.02 0.0075" type="box" rgba=".8 .5 .3 1"/>
+          <body pos="-0.05 0 0">
             <joint pos="0 0 0" axis="0 -1 0" name="tibia-back-right" range="0 135" type="hinge"/>
-            <geom pos="-0.35 0 0" size="0.5 0.1 0.05" type="box" rgba=".8 .5 .3 1"/>
+            <geom pos="-0.035 0 0" size="0.05 0.01 0.005" type="box" rgba=".8 .5 .3 1"/>
           </body>
         </body>
       </body>
