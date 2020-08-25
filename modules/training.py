@@ -90,7 +90,7 @@ class TrainingGym:
         acc0, acc1 = la1[i] - la0[i], la2[i] - la1[i]
         tremor_penalties[i] += np.sum(np.where((acc1 * acc0) < 0, 1, 0)) * 0.0005
         joint_powers = [j._p.getJointState(j.bodies[j.bodyIndex], j.jointIndex)[3] for j in robot.ordered_joints]
-        power_penalties[i] += np.sum(np.abs(joint_powers)) * 0.001
+        power_penalties[i] += np.sum(np.abs(joint_powers))
         # parts_xyz = np.array([p.pose().xyz() for p in robot.parts.values()]).flatten()
         # z_bonuses[i] += parts_xyz[2::3].mean() * 0.01
         # rpy = robot.robot_body.pose().rpy()
@@ -99,6 +99,8 @@ class TrainingGym:
 
     # done
     distances = np.linalg.norm(positions - start_positions, axis=1)
+    max_distance = np.max(distances)
+    power_penalties *= 0.5 * max_distance / (np.max(power_penalties) + 1)
     flip_penalties = np.array([1 if r.robot_body.current_position()[2] > r.parts['top'].current_position()[2] else 0 for r in env.robots])
     robot_rewards = distances - flip_penalties * 1000 - power_penalties
     # robot_rewards = robot_rewards - tremor_penalties + z_bonuses  # power_penalties seems supersede everything
